@@ -1,1 +1,30 @@
-<p>list works!</p>
+<div class="app__container">
+  <form class="search__container">
+    <div>
+      <label for="nazwaLotu">Nazwa lotu</label>
+      <input
+        name="nazwaLotu"
+        type="text"
+        pInputText
+        [(ngModel)]="nameFly"
+        id="nazwaLotu"
+        placeholder="Wpisz nazwę" />
+    </div>
+    <div>
+      <label for="dataLotu">Data lotu</label><input type="text" id="dataLotu" />
+    </div>
+    <div class="field-checkbox">
+      <p-checkbox
+        name="udaneLoty"
+        [(ngModel)]="successFly"
+        [binary]="true"
+        checkboxIcon="pi pi-check"
+        inputId="udaneLoty"></p-checkbox>
+
+      <label for="udaneLoty">{{ successFly }} Pokaż tylko udane loty</label>
+    </div>
+
+    <button pButton type="button" label="szukaj"></button>
+  </form>
+  <hr />
+</div>
