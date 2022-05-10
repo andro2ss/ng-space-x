@@ -3,6 +3,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { PrimeNGConfig } from 'primeng/api';
 import { SpacexListService } from '../services/spacex-list.service';
 import { SpaceX } from '../models/spaceXList.model';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -23,7 +24,9 @@ export class ListComponent implements OnInit {
   constructor(
     private localeService: BsLocaleService,
     private primengConfig: PrimeNGConfig,
-    private spaceXListService: SpacexListService
+    private spaceXListService: SpacexListService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.minDate = new Date('2006-03-20T10:30:00+12:00');
     this.maxDate = new Date();
@@ -34,6 +37,12 @@ export class ListComponent implements OnInit {
     this.getSpaceXList();
     this.localeService.use(this.locale);
     this.primengConfig.ripple = true;
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      let tempPage = parseInt(<string>params.get('page'));
+      if (tempPage > 0) {
+        this.pagination = Number(tempPage);
+      }
+    });
   }
 
   showFlights() {
@@ -103,12 +112,16 @@ export class ListComponent implements OnInit {
     this.showFlights();
   }
 
+  handleDetails(flight: SpaceX) {
+    this.router.navigate([flight.id], {
+      relativeTo: this.route,
+    });
+  }
+
   private getSpaceXList() {
     this.spaceXListService.getSpaceXList().subscribe({
       next: response => {
         this.spaceXList = response;
-        console.log(response);
-        const tempDate = new Date();
         this.showFlights();
       },
     });

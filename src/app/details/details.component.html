@@ -1,1 +1,43 @@
-<p>details works!</p>
+<div *ngIf="flight" class="detail__container">
+  <header class="detail__header">
+    <img src="../../assets/back.png" alt="back icon" (click)="handleBack()" />
+    <h2>Szczegóły lotu # {{ flight.flight_number }}</h2>
+  </header>
+  <hr />
+  <main class="detail__body">
+    <section>
+      <span>
+        Lot: <span class="text--bold">{{ flight.name }}</span>
+      </span>
+      <span>
+        Data lotu:
+        <span class="text--bold">{{
+          flight.date_utc | date: 'YYYY-MM-dd'
+        }}</span>
+      </span>
+      <span>
+        Status: <span class="text--bold" *ngIf="flight.success">Udany</span>
+        <span class="text--bold" *ngIf="!flight.success">Nie udany</span>
+      </span>
+    </section>
+    <section>
+      <span>
+        Załoga:
+        <span class="text--bold" *ngIf="flight.crew.length === 0"
+          >Brak danych</span
+        >
+        <span class="text--bold" *ngFor="let crew of flight.crew">{{
+          crew
+        }}</span>
+      </span>
+      <span>
+        Rakieta: <span class="text--bold">{{ flight.rocket }}</span>
+      </span>
+      <span>
+        Start: <span class="text--bold">{{ flight.date_local }}</span>
+      </span>
+    </section>
+    <section>galeria</section>
+    <section *ngIf="flight.details">{{ flight.details }}</section>
+  </main>
+</div>

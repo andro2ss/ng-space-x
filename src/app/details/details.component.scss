@@ -1,0 +1,64 @@
+@import '../style/variables.scss';
+
+.detail {
+  &__container {
+    font-family: $font-1;
+    max-width: $breakpoint-1;
+    width: 100%;
+    margin: 1rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    @media only screen and (min-width: $breakpoint-2) {
+      max-width: $breakpoint-2;
+    }
+    @media only screen and (min-width: $breakpoint-3) {
+      max-width: $breakpoint-3;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 2rem;
+    padding-left: 1.5rem;
+
+    img {
+      cursor: pointer;
+      width: 30px;
+    }
+
+    h2 {
+      border-left: $text-color-1 solid 1px;
+      color: $text-color-1;
+      margin: 0;
+      min-height: 52px;
+      padding: 1rem;
+      font-size: 1.25rem;
+      font-weight: bolder;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    margin-top: 1.5rem;
+
+    section {
+      background-color: $bg-color-1;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(0 0 0 / 35%);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+
+      .text--bold {
+        font-weight: bold;
+      }
+    }
+  }
+}

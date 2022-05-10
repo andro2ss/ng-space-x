@@ -63,6 +63,7 @@
       <h3>{{ flight.name }}</h3>
       <p>{{ flight.date_utc | date: 'YYYY-MM-dd' }}</p>
       <button
+        (click)="handleDetails(flight)"
         pButton
         pRipple
         type="button"

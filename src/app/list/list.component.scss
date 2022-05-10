@@ -1,10 +1,4 @@
-$text-color-1: #848383;
-$btn-color-1: rgba(48, 194, 213, 1);
-$font-1: 'ArialMT', 'Arial', sans-serif;
-
-$breakpoint-1: 480px;
-$breakpoint-2: 768px;
-$breakpoint-3: 1200px;
+@import '../style/variables.scss';
 
 @mixin searchBoxes {
   display: flex;
@@ -104,7 +98,7 @@ $breakpoint-3: 1200px;
       font-family: $font-1;
       display: flex;
       flex-direction: column;
-      background-color: rgba(255, 255, 255, 1);
+      background-color: $bg-color-1;
       border: none;
       border-radius: 20px;
       box-shadow: 0 0 40px rgba(0 0 0 / 35%);
@@ -117,7 +111,7 @@ $breakpoint-3: 1200px;
         align-items: center;
         height: 192px;
         width: 100%;
-        background: rgba(244, 242, 242, 1);
+        background: $bg-color-2;
 
         img {
           width: 100%;
