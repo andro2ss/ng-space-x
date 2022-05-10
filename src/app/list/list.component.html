@@ -1,54 +1,67 @@
 <div class="app__container">
-  <form class="search__container">
-    <div class="search__nameBox">
-      <label for="nazwaLotu">Nazwa lotu</label>
-      <input
-        name="nazwaLotu"
-        type="text"
-        pInputText
-        [(ngModel)]="nameFly"
-        id="nazwaLotu"
-        placeholder="Wpisz nazwę" />
-    </div>
-    <div class="search__dateBox">
-      <label for="dataLotu">Data lotu</label>
-      <input
-        placeholder="RRRR/MM/DD - RRRR/MM/DD"
-        type="text"
-        name="dataLotu"
-        id="dataLotu"
-        class="form-control"
-        bsDaterangepicker
-        pInputText
-        #dpr="bsDaterangepicker"
-        [bsConfig]="{ isAnimated: true }"
-        [(ngModel)]="dateFly"
-        [minDate]="minDate"
-        [maxDate]="maxDate"
-        [bsConfig]="{
-          rangeInputFormat: 'YYYY/MM/DD',
-          dateInputFormat: 'YYYY/MM/DD',
-          showWeekNumbers: false,
-          adaptivePosition: true
-        }" />
-    </div>
-    <div class="search__successFlyBox field-checkbox">
-      <p-checkbox
-        inputId="udaneLoty"
-        name="udaneLoty"
-        [(ngModel)]="successFly"
-        [binary]="true"></p-checkbox>
-      <label for="udaneLoty">Pokaż tylko udane loty</label>
-    </div>
-    <button pButton type="button" label="szukaj" class="search__btn"></button>
-  </form>
+  <header>
+    <form class="search__container" #form="ngForm" (submit)="onSubmit()">
+      <div class="search__nameBox">
+        <label for="nazwaLotu">Nazwa lotu</label>
+        <input
+          name="nazwaLotu"
+          type="text"
+          pInputText
+          [(ngModel)]="nameFly"
+          id="nazwaLotu"
+          placeholder="Wpisz nazwę" />
+      </div>
+      <div class="search__dateBox">
+        <label for="dataLotu">Data lotu</label>
+        <input
+          placeholder="RRRR/MM/DD - RRRR/MM/DD"
+          type="text"
+          name="dataLotu"
+          id="dataLotu"
+          class="form-control"
+          bsDaterangepicker
+          pInputText
+          #dpr="bsDaterangepicker"
+          [bsConfig]="{ isAnimated: true }"
+          [(ngModel)]="dateFly"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          [bsConfig]="{
+            rangeInputFormat: 'YYYY/MM/DD',
+            dateInputFormat: 'YYYY/MM/DD',
+            showWeekNumbers: false,
+            adaptivePosition: true
+          }" />
+      </div>
+      <div class="search__successFlyBox field-checkbox">
+        <p-checkbox
+          inputId="udaneLoty"
+          name="udaneLoty"
+          [(ngModel)]="successFly"
+          [binary]="true"></p-checkbox>
+        <label for="udaneLoty">Pokaż tylko udane loty</label>
+      </div>
+      <button
+        pButton
+        type="button"
+        label="szukaj"
+        class="search__btn"
+        (click)="onSubmit()"></button>
+    </form>
+  </header>
   <hr class="app__separator" />
-  <div class="content__container">
-    <div class="content__container--left">zdjęcie</div>
+  <div class="content__container" *ngFor="let flight of flights">
+    <div class="content__container--left">
+      <img
+        src="{{ flight.links.flickr.original[0] }}"
+        alt="Flight image"
+        *ngIf="flight.links.flickr.original.length > 0" />
+      <span *ngIf="flight.links.flickr.original.length === 0">Brak Zdjęć</span>
+    </div>
     <div class="content__container--right">
-      <p># numer</p>
-      <h3>Starlink jakis</h3>
-      <p>2021-04-07</p>
+      <p># {{ flight.flight_number }}</p>
+      <h3>{{ flight.name }}</h3>
+      <p>{{ flight.date_utc | date: 'YYYY-MM-dd' }}</p>
       <button
         pButton
         pRipple
@@ -57,18 +70,23 @@
         class="p-button-outlined"></button>
     </div>
   </div>
-  <div class="content__container">
-    <div class="content__container--left">zdjęcie</div>
-    <div class="content__container--right">
-      <p># numer</p>
-      <h3>Starlink jakis</h3>
-      <p>2021-04-07</p>
-      <button
-        pButton
-        pRipple
-        type="button"
-        label="więcej >"
-        class="content__btn p-button-outlined"></button>
-    </div>
+  <div class="pagination__container">
+    <button
+      id="pagBtnLeft"
+      pButton
+      (click)="paginationChange('back')"
+      *ngIf="backPageBtnControl()"
+      class="p-button-rounded">
+      <i class="pi pi-arrow-left"></i>
+    </button>
+    <span>Strona: {{ pagination }} </span
+    ><button
+      id="pagBtnRight"
+      pButton
+      (click)="paginationChange('next')"
+      *ngIf="nextPageBtnControl()"
+      class="p-button-rounded">
+      <i class="pi pi-arrow-right"></i>
+    </button>
   </div>
 </div>
