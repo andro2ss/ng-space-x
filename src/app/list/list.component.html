@@ -1,6 +1,6 @@
 <div class="app__container">
   <form class="search__container">
-    <div>
+    <div class="search__nameBox">
       <label for="nazwaLotu">Nazwa lotu</label>
       <input
         name="nazwaLotu"
@@ -10,21 +10,65 @@
         id="nazwaLotu"
         placeholder="Wpisz nazwę" />
     </div>
-    <div>
-      <label for="dataLotu">Data lotu</label><input type="text" id="dataLotu" />
+    <div class="search__dateBox">
+      <label for="dataLotu">Data lotu</label>
+      <input
+        placeholder="RRRR/MM/DD - RRRR/MM/DD"
+        type="text"
+        name="dataLotu"
+        id="dataLotu"
+        class="form-control"
+        bsDaterangepicker
+        pInputText
+        #dpr="bsDaterangepicker"
+        [bsConfig]="{ isAnimated: true }"
+        [(ngModel)]="dateFly"
+        [minDate]="minDate"
+        [maxDate]="maxDate"
+        [bsConfig]="{
+          rangeInputFormat: 'YYYY/MM/DD',
+          dateInputFormat: 'YYYY/MM/DD',
+          showWeekNumbers: false,
+          adaptivePosition: true
+        }" />
     </div>
-    <div class="field-checkbox">
+    <div class="search__successFlyBox field-checkbox">
       <p-checkbox
+        inputId="udaneLoty"
         name="udaneLoty"
         [(ngModel)]="successFly"
-        [binary]="true"
-        checkboxIcon="pi pi-check"
-        inputId="udaneLoty"></p-checkbox>
-
-      <label for="udaneLoty">{{ successFly }} Pokaż tylko udane loty</label>
+        [binary]="true"></p-checkbox>
+      <label for="udaneLoty">Pokaż tylko udane loty</label>
     </div>
-
-    <button pButton type="button" label="szukaj"></button>
+    <button pButton type="button" label="szukaj" class="search__btn"></button>
   </form>
-  <hr />
+  <hr class="app__separator" />
+  <div class="content__container">
+    <div class="content__container--left">zdjęcie</div>
+    <div class="content__container--right">
+      <p># numer</p>
+      <h3>Starlink jakis</h3>
+      <p>2021-04-07</p>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="więcej >"
+        class="p-button-outlined"></button>
+    </div>
+  </div>
+  <div class="content__container">
+    <div class="content__container--left">zdjęcie</div>
+    <div class="content__container--right">
+      <p># numer</p>
+      <h3>Starlink jakis</h3>
+      <p>2021-04-07</p>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="więcej >"
+        class="content__btn p-button-outlined"></button>
+    </div>
+  </div>
 </div>

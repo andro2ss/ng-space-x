@@ -7,9 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 import { CheckboxModule } from 'primeng/checkbox';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { plLocale } from 'ngx-bootstrap/locale';
+import { RippleModule } from 'primeng/ripple';
+defineLocale('pl', plLocale);
 
 @NgModule({
   declarations: [AppComponent, routingComponents],
@@ -22,6 +28,8 @@ import { InputTextModule } from 'primeng/inputtext';
     CheckboxModule,
     ButtonModule,
     InputTextModule,
+    BsDatepickerModule,
+    RippleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
