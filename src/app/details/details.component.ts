@@ -11,6 +11,8 @@ import { SpacexListService } from '../services/spacex-list.service';
 export class DetailsComponent implements OnInit {
   flight?: SpaceX;
   flightId: string = '';
+  flightGallery?: string[];
+  photoNum: number = 1;
 
   constructor(
     private router: Router,
@@ -22,6 +24,30 @@ export class DetailsComponent implements OnInit {
     this.router.navigate(['../'], {
       relativeTo: this.route,
     });
+  }
+
+  handleChangePhoto(direction: string) {
+    if (this.flightGallery) {
+      if (direction === '<') {
+        let tempPhoto = this.flightGallery.pop();
+        if (tempPhoto) {
+          this.flightGallery.unshift(tempPhoto);
+        }
+        this.photoNum -= 1;
+        if (this.photoNum < 1) {
+          this.photoNum = this.flightGallery.length;
+        }
+      } else {
+        let tempPhoto = this.flightGallery.shift();
+        if (tempPhoto) {
+          this.flightGallery.push(tempPhoto);
+        }
+        this.photoNum += 1;
+        if (this.photoNum > this.flightGallery.length) {
+          this.photoNum = 1;
+        }
+      }
+    }
   }
 
   ngOnInit(): void {
@@ -42,7 +68,9 @@ export class DetailsComponent implements OnInit {
             return item.id === this.flightId;
           })
           .shift();
+        this.flightGallery = this.flight?.links.flickr.original;
         console.log(this.flight);
+        console.log(this.flightGallery);
       },
     });
   }
