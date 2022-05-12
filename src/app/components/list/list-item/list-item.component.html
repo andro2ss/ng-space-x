@@ -1,0 +1,21 @@
+<div class="content__container" *ngFor="let flight of flights">
+  <div class="content__container--left">
+    <img
+      src="{{ flight.links.flickr.original[0] }}"
+      alt="Flight image"
+      *ngIf="flight.links.flickr.original.length > 0" />
+    <span *ngIf="flight.links.flickr.original.length === 0">Brak Zdjęć</span>
+  </div>
+  <div class="content__container--right">
+    <p># {{ flight.flight_number }}</p>
+    <h3>{{ flight.name }}</h3>
+    <p>{{ flight.date_utc | date: 'YYYY-MM-dd' }}</p>
+    <button
+      (click)="handleDetails(flight)"
+      pButton
+      pRipple
+      type="button"
+      label="więcej >"
+      class="p-button-outlined"></button>
+  </div>
+</div>

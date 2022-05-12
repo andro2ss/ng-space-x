@@ -1,0 +1,26 @@
+<img *ngIf="flightGallery"
+  class="gallery__img--main"
+  src="{{ flightGallery[0] }}"
+  alt="Image from this flight" />
+<div class="gallery__pagination">
+  <i
+    class="pi pi-chevron-left arrow"
+    (click)="handleChangePhoto('<')"></i>
+  <div class="gallery__boxes">
+    <div
+      class="gallery__box"
+      *ngFor="let photo of flightGallery; let i = index">
+      <img
+        *ngIf="i < 6"
+        class="gallery__img--small"
+        src="{{ photo }}"
+        alt="Image from this flight" />
+    </div>
+  </div>
+  <span class="gallery__counter">
+          {{ photoNum }}/{{ flightGallery?.length }}</span
+  >
+  <i
+    class="pi pi-chevron-right arrow"
+    (click)="handleChangePhoto('>')"></i>
+</div>

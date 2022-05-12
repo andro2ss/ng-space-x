@@ -9,7 +9,7 @@
           pInputText
           [(ngModel)]="nameFly"
           id="nazwaLotu"
-          placeholder="Wpisz nazwę" />
+          placeholder="Wpisz nazwę"/>
       </div>
       <div class="search__dateBox">
         <label for="dataLotu">Data lotu</label>
@@ -31,7 +31,7 @@
             dateInputFormat: 'YYYY/MM/DD',
             showWeekNumbers: false,
             adaptivePosition: true
-          }" />
+          }"/>
       </div>
       <div class="search__successFlyBox field-checkbox">
         <p-checkbox
@@ -49,28 +49,8 @@
         (click)="onSubmit()"></button>
     </form>
   </header>
-  <hr class="app__separator" />
-  <div class="content__container" *ngFor="let flight of flights">
-    <div class="content__container--left">
-      <img
-        src="{{ flight.links.flickr.original[0] }}"
-        alt="Flight image"
-        *ngIf="flight.links.flickr.original.length > 0" />
-      <span *ngIf="flight.links.flickr.original.length === 0">Brak Zdjęć</span>
-    </div>
-    <div class="content__container--right">
-      <p># {{ flight.flight_number }}</p>
-      <h3>{{ flight.name }}</h3>
-      <p>{{ flight.date_utc | date: 'YYYY-MM-dd' }}</p>
-      <button
-        (click)="handleDetails(flight)"
-        pButton
-        pRipple
-        type="button"
-        label="więcej >"
-        class="p-button-outlined"></button>
-    </div>
-  </div>
+  <hr class="app__separator"/>
+  <app-list-item [flights]="flights"></app-list-item>
   <div class="pagination__container">
     <button
       id="pagBtnLeft"
@@ -81,7 +61,8 @@
       <i class="pi pi-arrow-left"></i>
     </button>
     <span>Strona: {{ pageNum }} </span
-    ><button
+    >
+    <button
       id="pagBtnRight"
       pButton
       (click)="paginationChange('next')"

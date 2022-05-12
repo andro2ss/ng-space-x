@@ -15,10 +15,19 @@ import { InputTextModule } from 'primeng/inputtext';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { plLocale } from 'ngx-bootstrap/locale';
 import { RippleModule } from 'primeng/ripple';
+import { DetailsHeaderComponent } from './components/list/details/details-header/details-header.component';
+import { DetailsGalleryComponent } from './components/list/details/details-gallery/details-gallery.component';
+import { ListItemComponent } from './components/list/list-item/list-item.component';
 defineLocale('pl', plLocale);
 
 @NgModule({
-  declarations: [AppComponent, routingComponents],
+  declarations: [
+    AppComponent,
+    routingComponents,
+    DetailsHeaderComponent,
+    DetailsGalleryComponent,
+    ListItemComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

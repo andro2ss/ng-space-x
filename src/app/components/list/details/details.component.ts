@@ -15,7 +15,6 @@ export class DetailsComponent implements OnInit {
   flightId: string = '';
   flightGallery?: string[];
   launchStart?: string;
-  photoNum: number = 1;
 
   constructor(
     private router: Router,
@@ -24,36 +23,6 @@ export class DetailsComponent implements OnInit {
     private getDetailDataLaunchPadService: GetDetailDataLaunchPadService,
     private getDetailDataRocketService: GetDetailDataRocketService
   ) {}
-
-  handleBack() {
-    this.router.navigate(['../'], {
-      relativeTo: this.route,
-    });
-  }
-
-  handleChangePhoto(direction: string) {
-    if (this.flightGallery) {
-      if (direction === '<') {
-        let tempPhoto = this.flightGallery.pop();
-        if (tempPhoto) {
-          this.flightGallery.unshift(tempPhoto);
-        }
-        this.photoNum -= 1;
-        if (this.photoNum < 1) {
-          this.photoNum = this.flightGallery.length;
-        }
-      } else {
-        let tempPhoto = this.flightGallery.shift();
-        if (tempPhoto) {
-          this.flightGallery.push(tempPhoto);
-        }
-        this.photoNum += 1;
-        if (this.photoNum > this.flightGallery.length) {
-          this.photoNum = 1;
-        }
-      }
-    }
-  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
