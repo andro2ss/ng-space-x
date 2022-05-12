@@ -19,7 +19,7 @@ export class ListComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   locale = 'pl';
-  pagination: number = 1;
+  pageNum: number = 1;
 
   constructor(
     private localeService: BsLocaleService,
@@ -37,12 +37,23 @@ export class ListComponent implements OnInit {
     this.getSpaceXList();
     this.localeService.use(this.locale);
     this.primengConfig.ripple = true;
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      let tempPage = parseInt(<string>params.get('page'));
-      if (tempPage > 0) {
-        this.pagination = Number(tempPage);
+
+    let tempData = window.sessionStorage.getItem('config');
+    if (tempData) {
+      let configData = JSON.parse(tempData);
+      if (configData.dateFly) {
+        this.dateFly = configData.dateFly;
       }
-    });
+      if (configData.nameFly) {
+        this.nameFly = configData.nameFly;
+      }
+      if (configData.successFly) {
+        this.successFly = configData.successFly;
+      }
+      if (configData.pageNum) {
+        this.pageNum = configData.pageNum;
+      }
+    }
   }
 
   showFlights() {
@@ -80,19 +91,20 @@ export class ListComponent implements OnInit {
         }
       })
       .filter((flight, index) => {
-        const fromIndex = (this.pagination - 1) * 20;
-        const toIndex = this.pagination * 20;
+        const fromIndex = (this.pageNum - 1) * 20;
+        const toIndex = this.pageNum * 20;
         return index >= fromIndex && index < toIndex;
       });
   }
 
   paginationChange(direction: string) {
     if (direction === 'next') {
-      this.pagination += 1;
+      this.pageNum += 1;
     } else {
-      this.pagination -= 1;
+      this.pageNum -= 1;
     }
     this.showFlights();
+    this.saveConfig();
     window.scroll(0, 0);
   }
 
@@ -101,15 +113,28 @@ export class ListComponent implements OnInit {
     if (this.spaceXList) {
       tempLength = this.spaceXList.length;
     }
-    return Math.ceil(tempLength / 20) !== this.pagination;
+    return (
+      Math.ceil(tempLength / 20) !== this.pageNum && this.flights?.length === 20
+    );
   }
 
   backPageBtnControl() {
-    return this.pagination !== 1;
+    return this.pageNum !== 1;
+  }
+
+  saveConfig() {
+    let tempData = {
+      successFly: this.successFly,
+      nameFly: this.nameFly,
+      dateFly: this.dateFly,
+      pageNum: this.pageNum,
+    };
+    window.sessionStorage.setItem('config', JSON.stringify(tempData));
   }
 
   onSubmit() {
     this.showFlights();
+    this.saveConfig();
   }
 
   handleDetails(flight: SpaceX) {

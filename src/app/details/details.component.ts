@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SpaceX } from '../models/spaceXList.model';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { SpacexListService } from '../services/spacex-list.service';
+import { GetDetailDataLaunchPadService } from '../services/get-detail-data-launch-pad.service';
+import { GetDetailDataRocketService } from '../services/get-detail-data-rocket.service';
 
 @Component({
   selector: 'app-details',
@@ -12,12 +14,15 @@ export class DetailsComponent implements OnInit {
   flight?: SpaceX;
   flightId: string = '';
   flightGallery?: string[];
+  launchStart?: string;
   photoNum: number = 1;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private spaceXListService: SpacexListService
+    private spaceXListService: SpacexListService,
+    private getDetailDataLaunchPadService: GetDetailDataLaunchPadService,
+    private getDetailDataRocketService: GetDetailDataRocketService
   ) {}
 
   handleBack() {
@@ -69,8 +74,29 @@ export class DetailsComponent implements OnInit {
           })
           .shift();
         this.flightGallery = this.flight?.links.flickr.original;
-        console.log(this.flight);
-        console.log(this.flightGallery);
+        if (this.flight) {
+          this.getRocketData(this.flight.rocket);
+          this.getLaunchpadData(this.flight.launchpad);
+        }
+      },
+    });
+  }
+
+  private getRocketData(id: string) {
+    this.getDetailDataRocketService.getDetailDataRocket(id).subscribe({
+      next: response => {
+        if (this.flight) {
+          this.flight.rocket = response.name;
+          this.flightGallery?.push(...response.flickr_images);
+        }
+      },
+    });
+  }
+
+  private getLaunchpadData(id: string) {
+    this.getDetailDataLaunchPadService.getDetailDataLaunchPad(id).subscribe({
+      next: response => {
+        this.launchStart = response.name;
       },
     });
   }
