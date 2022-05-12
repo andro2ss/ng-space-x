@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SpaceX } from '../models/spaceXList.model';
+import { SpaceX } from '../../../models/spaceXList.model';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { SpacexListService } from '../services/spacex-list.service';
-import { GetDetailDataLaunchPadService } from '../services/get-detail-data-launch-pad.service';
-import { GetDetailDataRocketService } from '../services/get-detail-data-rocket.service';
+import { SpacexListService } from '../../../services/spacex-list.service';
+import { GetDetailDataLaunchPadService } from '../../../services/get-detail-data-launch-pad.service';
+import { GetDetailDataRocketService } from '../../../services/get-detail-data-rocket.service';
 
 @Component({
   selector: 'app-details',

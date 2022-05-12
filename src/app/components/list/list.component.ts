@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { PrimeNGConfig } from 'primeng/api';
-import { SpacexListService } from '../services/spacex-list.service';
-import { SpaceX } from '../models/spaceXList.model';
+import { SpacexListService } from '../../services/spacex-list.service';
+import { SpaceX } from '../../models/spaceXList.model';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
