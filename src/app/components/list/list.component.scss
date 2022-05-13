@@ -12,6 +12,10 @@
 }
 
 .app__container {
+
+  animation: slideInLeft;
+  animation-duration: 800ms;
+
   display: flex;
   flex-direction: column;
   margin: 1rem auto;

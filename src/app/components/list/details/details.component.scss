@@ -2,6 +2,10 @@
 
 .detail {
   &__container {
+
+    animation: zoomInUp;
+    animation-duration: 800ms;
+
     font-family: $font-1;
     max-width: $breakpoint-1;
     width: 100%;

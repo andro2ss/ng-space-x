@@ -18,6 +18,9 @@ import { RippleModule } from 'primeng/ripple';
 import { DetailsHeaderComponent } from './components/list/details/details-header/details-header.component';
 import { DetailsGalleryComponent } from './components/list/details/details-gallery/details-gallery.component';
 import { ListItemComponent } from './components/list/list-item/list-item.component';
+import { LoaderRocketComponent } from './components/common/loaders/loader-rocket/loader-rocket.component';
+import { LoaderTextComponent } from './components/common/loaders/loader-text/loader-text.component';
+import { GetDataRocketLoaderComponent } from './components/common/loaders/get-data-rocket-loader/get-data-rocket-loader.component';
 defineLocale('pl', plLocale);
 
 @NgModule({
@@ -27,6 +30,9 @@ defineLocale('pl', plLocale);
     DetailsHeaderComponent,
     DetailsGalleryComponent,
     ListItemComponent,
+    LoaderRocketComponent,
+    LoaderTextComponent,
+    GetDataRocketLoaderComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
-<div class="app__container">
+<app-get-data-rocket-loader  *ngIf="!flights"></app-get-data-rocket-loader>
+<div class="app__container" *ngIf="flights">
   <header>
     <form class="search__container" #form="ngForm" (submit)="onSubmit()">
       <div class="search__nameBox">
